@@ -41,3 +41,29 @@ Admin user has been created in [users.json](dummy_data/users.json) <br />
 You can access the admin pannel from http://localhost:8000/admin/ <br />
 phone number: 09171234567 <br />
 password: password
+
+# Deployment
+
+Deploy with docker using postgresql, gunicorn and nginx.
+
+### Setup envrionment variables
+```
+cp .env.sample .env
+cp .env.db.sample .env.db
+```
+
+### Build and up image using docker compose
+
+```
+docker-compose build
+docker-compose up -d
+```
+
+### Collect static files and add dummy data
+
+```
+docker-compose exec web python manage.py collectstatic --no-input
+docker-compose exec web python add_dummy_data.py
+```
+
+You are good to go. Open your server ip address on port 80 (Ex on localhost: http://127.0.0.1).
